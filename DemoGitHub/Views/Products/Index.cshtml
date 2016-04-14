@@ -11,9 +11,18 @@
     @using (Html.BeginForm("Index", "Products", FormMethod.Post))
     {
         <input type="submit" style="float:right" />
-        <input type="text" name="request" placeholder="Entrer recherche" style="float:right" />
+        <input type="text" name="request" placeholder="Entrer recherche" style="float:right" />      
+        <select name="category">
+            <option value="all">all</option>
+            @foreach (SelectListItem i in ViewBag.CategoryID)
+            {
+                <option>@i.Text.ToString()</option>
+            }
+        </select>
+
     }
 </p>
+
 <table class="table">
     <tr>
         <th>

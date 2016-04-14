@@ -18,13 +18,25 @@ namespace DemoGitHub.Controllers
         public ActionResult Index()
         {
             var products = db.Products.Include(p => p.Categories).Include(p => p.Suppliers);
+            Create();
             return View(products.ToList());
         }
 
         [HttpPost]
-        public ActionResult Index(String request)
-        {
-            var products = db.Products.Where(p => p.ProductName.Contains(request)).Include(p => p.Categories).Include(p => p.Suppliers);
+        public ActionResult Index(String request, String category) {
+
+            Create();
+
+            var products = db.Products.Where(p => p.CategoryID == 1);
+
+            if (category != "all")
+            {
+                 products = db.Products.Where(p => p.ProductName.Contains(request) && p.Categories.CategoryName == category).Include(p => p.Categories).Include(p => p.Suppliers);
+            }
+            else {
+                 products = db.Products.Where(p => p.ProductName.Contains(request)).Include(p => p.Categories).Include(p => p.Suppliers);
+            }
+
             return View(products.ToList());
         }
 
